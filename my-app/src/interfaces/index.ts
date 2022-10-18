@@ -1,5 +1,5 @@
 export type SortType = 'HIGH' | 'LOW'
-export type CurrencyType = '$' | '€'
+export type CurrencyType = 'USD' | 'EUR'
 export type ActionType = 'SET_MAIN_STATE'
 
 export interface Action {

@@ -1,5 +1,4 @@
 export type SortType = 'HIGH' | 'LOW'
-export type CurrencyType = 'USD' | 'EUR'
 export type ActionType = 'SET_MAIN_STATE'
 
 export interface Action {
@@ -27,7 +26,6 @@ export interface MainReducerState {
     products: Product[]
     searchString: string
     sortBy: SortType
-    currency: CurrencyType
     cart: CartElement[]
 }
 

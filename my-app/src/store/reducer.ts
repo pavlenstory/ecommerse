@@ -7,7 +7,6 @@ export const initState: MainReducerState = {
     products: [],
     searchString: '',
     sortBy: 'LOW',
-    currency: 'USD',
     cart: cart ? JSON.parse(cart) : []
 }
 

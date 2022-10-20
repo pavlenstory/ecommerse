@@ -1,13 +1,14 @@
 import { useEffect, useState, useMemo } from 'react'
 import { MainReducerState } from '../../interfaces'
 import Pagination from '@mui/material/Pagination';
+import { ProductElement } from './ProductIElement/ProductElement';
 
 const PAGE_LIMIT: number = 4
 
 type Props = Partial<MainReducerState> & { fetchProductList: Function }
 
 export const ProductList = (props: Props) => {
-    const { fetchProductList, products = [], searchString, currency = 'USD' } = props;
+    const { fetchProductList, products = [], searchString } = props;
     const [sortedProducts, setSortedProducts] = useState(products)
     const [currentPage, setCurrentPage] = useState<number>(1)
 
@@ -34,13 +35,15 @@ export const ProductList = (props: Props) => {
 
     return (
         <>
-            {sortedProducts?.slice(pageStart, pageEnd).map(p => (
-                <div>
-                    <img src={p.image} />
-                    <div key={p.id}>{p.title} - {p.description} - {p.price}</div>
-                </div>
-            ))}
-            <Pagination count={pageLimit} page={currentPage} onChange={(_, num) => setCurrentPage(num)} />
+            <div>Products</div>
+            {sortedProducts.length ?
+                <>
+                    {sortedProducts?.slice(pageStart, pageEnd).map(p => (
+                        <ProductElement {...p} />
+                    ))}
+                    <Pagination count={pageLimit} page={currentPage} onChange={(_, num) => setCurrentPage(num)} />
+                </>
+                : <div>Poducts were not found</div>}
         </>
     )
 }

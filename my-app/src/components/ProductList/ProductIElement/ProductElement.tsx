@@ -13,7 +13,10 @@ type Props = Product & { cart: CartElement[] }
 
 const ProductElement = (props: Props) => {
     const { image, id, title, description, price, cart } = props;
-    console.log('test')
+
+    const addToCart = (): void => {
+        const updatedCart = [...cart, { id, quantity: 1 }]
+    }
     return (
         <Card sx={{ maxWidth: 345 }} key={id}>
             <CardMedia
@@ -32,7 +35,7 @@ const ProductElement = (props: Props) => {
             </CardContent>
             <CardActions>
                 <Button size="small">{'$' + price}</Button>
-                <Button variant="contained">Add to cart</Button>
+                <Button variant="contained" onClick={addToCart}>Add to cart</Button>
             </CardActions>
         </Card>
     )

@@ -28,5 +28,3 @@ export interface MainReducerState {
     sortBy: SortType
     cart: CartElement[]
 }
-
-export { }

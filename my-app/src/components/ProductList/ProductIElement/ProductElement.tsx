@@ -28,7 +28,7 @@ export const ProductElement = (props: Props) => {
             </CardContent>
             <CardActions>
                 <Button size="small">{'$' + price}</Button>
-                <Button size="small">Learn More</Button>
+                <Button size="small">Add to cart</Button>
             </CardActions>
         </Card>
     )

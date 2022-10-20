@@ -5,7 +5,13 @@ import { fetchProductList } from "../../store/actions";
 import { ThunkDispatch } from "redux-thunk";
 import { ProductList } from "./ProductList";
 
-const mapStateToProps = (state: MainReducerState): Partial<MainReducerState> => ({ ...state })
+const mapStateToProps = (state: Partial<MainReducerState>): Partial<MainReducerState> => {
+    const { products, sortBy } = state
+    return {
+        ...state,
+        products: products?.sort((a, b) => sortBy === 'LOW' ? +a.price - +b.price : +b.price - +a.price)
+    }
+}
 const mapDispatchToProps = (dispatch: Dispatch & ThunkDispatch<any, any, any>) => ({
     fetchProductList: () => dispatch(fetchProductList())
 })

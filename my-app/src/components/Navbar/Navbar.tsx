@@ -3,13 +3,13 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent } from "react"
 import { MainReducerState } from "../../interfaces"
 
 type Props = Partial<MainReducerState> & { setMainState: (payload: Partial<MainReducerState>) => void }
 
 export const Navbar = (props: Props) => {
-    const { setMainState, sortBy } = props
+    const { setMainState, sortBy, searchString } = props
 
     const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
         const { target: { value } } = e
@@ -22,10 +22,11 @@ export const Navbar = (props: Props) => {
             setMainState({ sortBy: value })
         }
     }
+
     return (
         <div>
             <div>Shop</div>
-            <input onChange={onSearch} />
+            <input onChange={onSearch} value={searchString} />
             <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Sort by price</InputLabel>

@@ -1,20 +1,24 @@
-import { Product } from "../../../interfaces"
+import { CartElement, Product } from "../../../interfaces"
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { memo } from "react";
+import { isEqual } from "lodash";
 
-type Props = Product
 
-export const ProductElement = (props: Props) => {
-    const { image, id, title, description, price } = props;
+type Props = Product & { cart: CartElement[] }
+
+const ProductElement = (props: Props) => {
+    const { image, id, title, description, price, cart } = props;
+    console.log('test')
     return (
         <Card sx={{ maxWidth: 345 }} key={id}>
             <CardMedia
                 component="img"
-                height="140"
+                height="400"
                 image={image}
                 alt={title}
             />
@@ -28,8 +32,14 @@ export const ProductElement = (props: Props) => {
             </CardContent>
             <CardActions>
                 <Button size="small">{'$' + price}</Button>
-                <Button size="small">Add to cart</Button>
+                <Button variant="contained">Add to cart</Button>
             </CardActions>
         </Card>
     )
 }
+
+const comparisonFn = (prevProps: Props, nextProps: Props) => {
+    return isEqual(prevProps, nextProps)
+};
+
+export default memo(ProductElement, comparisonFn);

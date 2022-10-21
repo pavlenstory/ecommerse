@@ -8,7 +8,7 @@ export interface Action {
 
 export interface CartElement {
     id: number
-    quanity: number
+    quantity: number
 }
 
 export interface Product {
@@ -28,3 +28,5 @@ export interface MainReducerState {
     sortBy: SortType
     cart: CartElement[]
 }
+
+export type cartBodyElement = CartElement & Product

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { MainReducerState } from "../../interfaces";
 import { Dispatch } from 'redux';
-import { fetchProductList } from "../../store/actions";
+import { fetchProductList, setMainState } from "../../store/actions";
 import { ThunkDispatch } from "redux-thunk";
 import { ProductList } from "./ProductList";
 
@@ -13,7 +13,8 @@ const mapStateToProps = (state: Partial<MainReducerState>): Partial<MainReducerS
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch & ThunkDispatch<any, any, any>) => ({
-    fetchProductList: () => dispatch(fetchProductList())
+    fetchProductList: () => dispatch(fetchProductList()),
+    setMainState: (payload: Partial<MainReducerState>) => dispatch(setMainState(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList)

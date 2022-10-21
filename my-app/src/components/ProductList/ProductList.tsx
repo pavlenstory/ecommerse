@@ -1,7 +1,8 @@
 import { useEffect, useState, useMemo } from 'react'
 import { MainReducerState } from '../../interfaces'
-import Pagination from '@mui/material/Pagination';
 import ProductElement from './ProductIElement/ProductElement';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 import styled from "@emotion/styled";
 
 const CardWrapper = styled.div`
@@ -9,12 +10,21 @@ const CardWrapper = styled.div`
     padding: 10px;
 `
 
+const ProductListWrapper = styled.div`
+    text-align: center;
+    padding: 10px;
+`
+
+const ProductsError = styled.h2`
+    text-align: center;
+`
+
 const PAGE_LIMIT: number = 4
 
-type Props = Partial<MainReducerState> & { fetchProductList: Function }
+type Props = Partial<MainReducerState> & { fetchProductList: Function, setMainState: Function }
 
 export const ProductList = (props: Props) => {
-    const { fetchProductList, products = [], searchString, sortBy, cart = [] } = props;
+    const { fetchProductList, products = [], searchString, sortBy, cart = [], setMainState } = props;
     const [sortedProducts, setSortedProducts] = useState(products)
     const [currentPage, setCurrentPage] = useState<number>(1)
 
@@ -45,17 +55,20 @@ export const ProductList = (props: Props) => {
 
     return (
         <>
-            <div>Products</div>
             {sortedProducts.length ?
                 <>
-                    {sortedProducts?.slice(pageStart, pageEnd).map(p => (
-                        <CardWrapper key={p.id}>
-                            <ProductElement {...p} cart={cart} />
-                        </CardWrapper>
-                    ))}
-                    <Pagination count={pageLimit} page={currentPage} onChange={(_, num) => setCurrentPage(num)} />
+                    <ProductListWrapper>
+                        {sortedProducts?.slice(pageStart, pageEnd).map(p => (
+                            <CardWrapper key={p.id}>
+                                <ProductElement {...p} cart={cart} setMainState={setMainState} />
+                            </CardWrapper>
+                        ))}
+                    </ProductListWrapper>
+                    <Stack alignItems="center" padding="10px">
+                        <Pagination count={pageLimit} page={currentPage} onChange={(_, num) => setCurrentPage(num)} />
+                    </Stack>
                 </>
-                : <div>Poducts were not found</div>}
+                : <ProductsError>Poducts were not found</ProductsError>}
         </>
     )
 }
